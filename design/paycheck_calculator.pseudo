@@ -1,27 +1,56 @@
 # IT 140 Module Three Assignment
-# Paycheck Calculator Pseudocode Template
+# Paycheck Calculator Pseudocode
 #
-# Replace every TODO prompt with your own pseudocode.
-# Keep this file in .pseudo format for submission.
-#
-# Your finished pseudocode should represent the same logic as your flowchart.
-# Use clear indentation and ALLCAPS pseudocode keywords, such as GET (input),
-# PUT (output), LET (assignment), IF, ELSE, and ENDIF where they fit your design.
+# This pseudocode represents the same logic as the flowchart
+# (paycheck_calculator.drawio, Paycheck Calculator tab).
+# It is kept in .pseudo format for submission.
 
 START paycheck_calculator
 
-    TODO: Obtain the required program input.
+    # --- Input ---
+    GET hoursWorked                # number of hours the employee worked this week
 
-    IF TODO: Specify the condition for the applicable pay rule.
-        TODO: List the processing steps for the true decision path.
+    # --- Constants (the company's pay rules) ---
+    LET regularRate = 20           # $20 per hour for the first 40 hours
+    LET overtimeRate = 30          # $30 per hour for each hour above 40
+    LET regularHours = 40          # the overtime boundary
+
+    # --- Decision branching ---
+    # An employee earns overtime only when they work MORE than 40 hours.
+    IF hoursWorked > regularHours
+        # True path: overtime applies
+        LET overtimeHours = hoursWorked - regularHours
+        LET overtimePay = overtimeHours * overtimeRate
     ELSE
-        TODO: List the processing steps for the false decision path.
+        # False path: 40 hours or fewer, so no overtime
+        LET overtimeHours = 0
+        LET overtimePay = 0
     ENDIF
 
-    TODO: Output the calculated weekly paycheck.
+    # --- Processing common to both paths ---
+    LET regularPay = regularHours * regularRate
+    LET weeklyPaycheck = regularPay + overtimePay
+
+    # --- Output ---
+    PUT weeklyPaycheck
 
 END paycheck_calculator
 
-
 # === References ===
-# TODO: List outside sources or assistance you actually used, or delete this line.
+# IT 140 Module Three Assignment prompt and pay rules ($20/hr for the first
+# 40 hours, $30/hr for hours above 40).
+# Module Three flowchart and pseudocode templates (paycheck_calculator.drawio
+# and paycheck_calculator.pseudo).
+
+# === Check: assignment example ===
+# hoursWorked = 60  ->  overtimeHours = 20
+#   overtimePay  = 20 * 30 = 600
+#   regularPay   = 40 * 20 = 800
+#   weeklyPaycheck = 800 + 600 = 1400   (matches the prompt's example)
+#
+# === Check: boundary and regular cases ===
+# hoursWorked = 40  ->  IF 40 > 40 is false  ->  overtimePay = 0
+#   weeklyPaycheck = 800 + 0 = 800
+# hoursWorked = 30  ->  IF 30 > 40 is false  ->  overtimePay = 0
+#   weeklyPaycheck = 800 + 0 = 800
+
